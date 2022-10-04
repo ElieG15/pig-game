@@ -12,15 +12,36 @@ const btnNew = document.querySelector('.btn--new');
 const btnRoll = document.querySelector('.btn--roll');
 const btnHold = document.querySelector('.btn--hold');
 
-//Starting conditions
-score0El.textContent = 0;
-score1El.textContent = 0;
-diceEl.classList.add('hidden');
+let scores, currentScore, activePlayer, playing;
+//Starting conditions:: I move this code in the function below to be make it easier to use for the restarting game
+// score0El.textContent = 0;
+// score1El.textContent = 0;
+// diceEl.classList.add('hidden');
 
-const score = [0, 0];
-let currentScore = 0;
-let activePlayer = 0;
-let playing = true;
+// const score = [0, 0];
+// let currentScore = 0;
+// let activePlayer = 0;
+// let playing = true;
+
+//Starting condition
+const init = function () {
+  scores = [0, 0];
+  currentScore = 0;
+  activePlayer = 0;
+  playing = true;
+
+  score0El.textContent = 0;
+  score1El.textContent = 0;
+  current0El.textContent = 0;
+  current1El.textContent = 0;
+
+  diceEl.classList.add('hidden');
+  player0El.classList.remove('player--winner');
+  player1El.classList.remove('player--winner');
+  player0El.classList.add('player--active');
+  player1El.classList.remove('player--active');
+};
+init();
 
 const switchPlayer = function () {
   document.getElementById(`current--${activePlayer}`).textContent = 0;
@@ -62,11 +83,11 @@ btnRoll.addEventListener('click', function () {
 btnHold.addEventListener('click', function () {
   if (playing) {
     //1) add current score to active place's score
-    score[activePlayer] += currentScore; //in order hand it mean score[1] = score[1] + currentScore
+    scores[activePlayer] += currentScore; //in order hand it mean score[1] = score[1] + currentScore
     document.getElementById(`score--${activePlayer}`).textContent =
-      score[activePlayer];
+      scores[activePlayer];
     //2a) check if player's score is >= 100,
-    if (score[activePlayer] >= 20) {
+    if (scores[activePlayer] >= 20) {
       //b) finish the game
       playing = false;
       diceEl.classList.add('hidden');
@@ -84,3 +105,21 @@ btnHold.addEventListener('click', function () {
     }
   }
 });
+
+btnNew.addEventListener('click', init);
+
+//function () { this function came from the btnNew button
+
+//   //I create the function above with these lines of code to make it way easier to manipulate by calling here
+
+//   // score0El.textContent = 0;
+//   // score1El.textContent = 0;
+
+//   // current0El.textContent = 0;
+//   // current1El.textContent = 0;
+//   // player0El.classList.remove('player--winner');
+//   // player1El.classList.remove('player--winner');
+//   // player0El.classList.add('player--active');
+//   // player1El.classList.remove('player--active');
+
+// });
