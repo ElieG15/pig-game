@@ -45,8 +45,8 @@ init();
 
 const switchPlayer = function () {
   document.getElementById(`current--${activePlayer}`).textContent = 0;
-  activePlayer = activePlayer === 0 ? 1 : 0;
   currentScore = 0;
+  activePlayer = activePlayer === 0 ? 1 : 0;
   player0El.classList.toggle('player--active');
   player1El.classList.toggle('player--active');
 };
@@ -98,8 +98,6 @@ btnHold.addEventListener('click', function () {
         .querySelector(`.player--${activePlayer}`)
         .classList.remove('player--active');
     } else {
-      switchPlayer();
-
       //3) switch to the next player
       switchPlayer();
     }
